@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Football Apps</string>
+    <string name="title_events">Matches</string>
+    <string name="title_teams">Teams</string>
+    <string name="title_favorites">Favorites</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="date">Senin, 15 July 2001</string>
+    <string name="score">0</string>
+    <string name="vs">VS</string>
+    <string name="teamHome">HOME</string>
+    <string name="teamAway">AWAY</string>
+    <string name="player">Dzakdzaks</string>
+    <string name="goals_and_shots">Goals and Shots</string>
+    <string name="goals">Goals</string>
+    <string name="shots">Shots</string>
+    <string name="lineups">Lineups</string>
+    <string name="goal_keeper_n_gk">Goal Keeper \n(GK)</string>
+    <string name="defense_n_cb">Defense \n(CB)</string>
+    <string name="midfield_n_cmf">Midfield \n(CMF)</string>
+    <string name="forward_n_cf">Forward \n(CF)</string>
+    <string name="subtitutes">Subtitutes</string>
+    <string name="this_match_wil_be_held_on">This match wil be held on \n</string>
+    <string name="search">Search</string>
+    <string name="empty">The data you are looking for is not found!</string>
+
+    <array name="leagueArray">
+        <item>English Premier League</item>
+        <item>German Bundesliga</item>
+        <item>Italian Serie A</item>
+        <item>French Ligue 1</item>
+        <item>Spanish La Liga</item>
+        <item>Netherlands Eredivisie</item>
+    </array>
+    <string name="title_activity_events_detail">EventsDetailActivity</string>
+    <string name="title_activity_team_detail">TeamDetailActivity</string>
+    <string name="title_activity_player_detail">PlayerDetailActivity</string>
+    <string name="player_name">Name : </string>
+    <string name="player_team">Team : </string>
+    <string name="born">Date of Birth : </string>
+    <string name="birth_location">Birth Location : </string>
+    <string name="date_of_signed">Date of signed : </string>
+    <string name="position">Position : </string>
+    <string name="height">Height (m) : </string>
+    <string name="weight">Weight (kg) : </string>
+    <string name="player_overview">Player Overview</string>
+
+</resources>

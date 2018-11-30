@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.dzakdzaks.footballapps.features.teams.team_detail.TeamsDetailActivity">
+    <item
+        android:id="@+id/add_to_favorite_team"
+        android:icon="@drawable/ic_add_to_favorites"
+        android:iconifiedByDefault="false"
+        android:title="@string/title_favorites"
+        app:showAsAction="ifRoom" />
+</menu>
