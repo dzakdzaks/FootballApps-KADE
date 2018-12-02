@@ -41,29 +41,38 @@ class EventsAdapter(private val context: Context, private val events: List<Event
             val awayTeamName = events.awayTeamName
             val leagueName = events.leagueName
             val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            dateFormat.timeZone = TimeZone.getTimeZone("UTC")
             val date = dateFormat.parse(dateEvent)
             val formatedDate = dateFormater(date)
 
             if (timeEvent != null) {
-                if (timeEvent.equals(SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault()))) {
-                    val timeGMTFormat = SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault())
-                    val times = timeGMTFormat.parse(timeEvent)
-                    val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
-                    val dateAndTime = formatedDate + "\n" + localTime
-                    tv_date.text = dateAndTime
+                when {
+                    timeEvent.equals(SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault())) -> {
+                        val timeGMTFormat = SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault())
+                        timeGMTFormat.timeZone = TimeZone.getTimeZone("UTC")
+                        val times = timeGMTFormat.parse(timeEvent)
+                        val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
+                        val dateAndTime = formatedDate + "\n" + localTime
+                        tv_date.text = dateAndTime
 
-                } else if (timeEvent.equals(SimpleDateFormat("hh:mm:ss", Locale.getDefault()))) {
-                    val timeGMTFormat = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
-                    val times = timeGMTFormat.parse(timeEvent)
-                    val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
-                    val dateAndTime = formatedDate + "\n" + localTime
-                    tv_date.text = dateAndTime
-                } else {
-                    val timeGMTFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
-                    val times = timeGMTFormat.parse(timeEvent)
-                    val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
-                    val dateAndTime = formatedDate + "\n" + localTime
-                    tv_date.text = dateAndTime
+                    }
+
+                    timeEvent.equals(SimpleDateFormat("hh:mm:ss", Locale.getDefault())) -> {
+                        val timeGMTFormat = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
+                        timeGMTFormat.timeZone = TimeZone.getTimeZone("UTC")
+                        val times = timeGMTFormat.parse(timeEvent)
+                        val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
+                        val dateAndTime = formatedDate + "\n" + localTime
+                        tv_date.text = dateAndTime
+                    }
+                    else -> {
+                        val timeGMTFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
+                        timeGMTFormat.timeZone = TimeZone.getTimeZone("UTC")
+                        val times = timeGMTFormat.parse(timeEvent)
+                        val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
+                        val dateAndTime = formatedDate + "\n" + localTime
+                        tv_date.text = dateAndTime
+                    }
                 }
             }
 

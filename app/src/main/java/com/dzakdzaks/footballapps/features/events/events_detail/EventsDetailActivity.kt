@@ -1,5 +1,6 @@
 package com.dzakdzaks.footballapps.features.events.events_detail
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.database.sqlite.SQLiteConstraintException
 import android.graphics.Color
@@ -171,6 +172,7 @@ class EventsDetailActivity : AppCompatActivity(), EventsDetailView {
                 })
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun showDetailEvent(data: List<Events>) {
         match = data[0]
         toolbar_layout.title = match.matchName
@@ -197,7 +199,8 @@ class EventsDetailActivity : AppCompatActivity(), EventsDetailView {
         val awaySub = match.awayLineupSubstitutes.toString()
         val homeShots = match.homeShoots.toString() + " Shots"
         val awayShots = match.awayShoots.toString() + " Shots"
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
         val date = dateFormat.parse(match.dateEvent.toString())
         val formatedDate = dateFormater(date)
         val timeEvent = match.timeEvent
@@ -205,25 +208,32 @@ class EventsDetailActivity : AppCompatActivity(), EventsDetailView {
 
 
         if (timeEvent != null) {
-            if (timeEvent.equals(SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault()))) {
-                val timeGMTFormat = SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault())
-                val times = timeGMTFormat.parse(timeEvent)
-                val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
-                val dateAndTime = formatedDate + "\n" + localTime + "\n" + leagueName
-                tv_date_detail.text = dateAndTime
+            when {
+                timeEvent.equals(SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault())) -> {
+                    val timeGMTFormat = SimpleDateFormat("hh:mm:ss'+'ss:ss", Locale.getDefault())
+                    timeGMTFormat.timeZone = TimeZone.getTimeZone("UTC")
+                    val times = timeGMTFormat.parse(timeEvent)
+                    val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
+                    val dateAndTime = formatedDate + "\n" + localTime + "\n" + leagueName
+                    tv_date_detail.text = dateAndTime
 
-            } else if (timeEvent.equals(SimpleDateFormat("hh:mm:ss", Locale.getDefault()))) {
-                val timeGMTFormat = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
-                val times = timeGMTFormat.parse(timeEvent)
-                val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
-                val dateAndTime = formatedDate + "\n" + localTime + "\n" + leagueName
-                tv_date_detail.text = dateAndTime
-            } else {
-                val timeGMTFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
-                val times = timeGMTFormat.parse(timeEvent)
-                val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
-                val dateAndTime = formatedDate + "\n" + localTime + "\n" + leagueName
-                tv_date_detail.text = dateAndTime
+                }
+                timeEvent.equals(SimpleDateFormat("hh:mm:ss", Locale.getDefault())) -> {
+                    val timeGMTFormat = SimpleDateFormat("hh:mm:ss", Locale.getDefault())
+                    timeGMTFormat.timeZone = TimeZone.getTimeZone("UTC")
+                    val times = timeGMTFormat.parse(timeEvent)
+                    val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
+                    val dateAndTime = formatedDate + "\n" + localTime + "\n" + leagueName
+                    tv_date_detail.text = dateAndTime
+                }
+                else -> {
+                    val timeGMTFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
+                    timeGMTFormat.timeZone = TimeZone.getTimeZone("UTC")
+                    val times = timeGMTFormat.parse(timeEvent)
+                    val localTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(times)
+                    val dateAndTime = formatedDate + "\n" + localTime + "\n" + leagueName
+                    tv_date_detail.text = dateAndTime
+                }
             }
         }
 
